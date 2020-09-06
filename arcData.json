@@ -2,50 +2,51 @@
     "nodes": [
         {
             "week": 4,
-            "other": 161,
-            "single": 32
+            "single": 32,
+            "self": 0,
+            "other": 161
         },
         {
             "week": 5,
-            "other": 294,
+            "single": 43,
             "self": 24,
-            "single": 43
+            "other": 294
         },
         {
             "week": 6,
-            "other": 302,
+            "single": 34,
             "self": 14,
-            "single": 34
+            "other": 302
         },
         {
             "week": 7,
-            "other": 295,
+            "single": 31,
             "self": 14,
-            "single": 31
+            "other": 295
         },
         {
             "week": 8,
-            "other": 379,
+            "single": 29,
             "self": 24,
-            "single": 29
+            "other": 379
         },
         {
             "week": 9,
-            "other": 577,
             "single": 81,
-            "self": 23
+            "self": 23,
+            "other": 577
         },
         {
             "week": 10,
             "single": 60,
-            "other": 459,
-            "self": 27
+            "self": 27,
+            "other": 459
         },
         {
             "week": 11,
-            "other": 335,
             "single": 62,
-            "self": 45
+            "self": 45,
+            "other": 335
         }
     ],
     "links": [
