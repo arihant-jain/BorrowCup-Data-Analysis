@@ -161,6 +161,10 @@ window.onload=function(){
             .attr('r', function(d){
                 return innerCircleRadius(d) + 5;
             });
+
+            // fade all links
+            d3.selectAll('.link')
+            .style("stroke-opacity", 0.2);
         })
 
         svg
@@ -170,7 +174,11 @@ window.onload=function(){
             .style("opacity", 1);
 
             d3.select(this)
-            .attr('r', innerCircleRadius)
+            .attr('r', innerCircleRadius);
+
+            // unfade all links
+            d3.selectAll('.link')
+            .style("stroke-opacity", 1);
         })
 
         svg
@@ -207,13 +215,7 @@ window.onload=function(){
             .attr('r', midCircleRadius);
 
             d3.selectAll('.link')
-            .attr("stroke", function(link_d){ 
-                return color(Math.ceil(link_d.count/20) - offset);
-            })
-            .style("stroke-opacity", 1)
-            .style("stroke-width", function (link_d) { 
-                return Math.ceil(link_d.count/20) - offset; 
-            });
+            .style("stroke-opacity", 1);
         })
 
         svg
@@ -250,13 +252,7 @@ window.onload=function(){
             .attr('r', outerCircleRadius);
 
             d3.selectAll('.link')
-            .attr("stroke", function(link_d){ 
-                return color(Math.ceil(link_d.count/20) - offset);
-            })
-            .style("stroke-opacity", 1)
-            .style("stroke-width", function (link_d) { 
-                return Math.ceil(link_d.count/20) - offset; 
-            });
+            .style("stroke-opacity", 1);
         })
     })
 }
