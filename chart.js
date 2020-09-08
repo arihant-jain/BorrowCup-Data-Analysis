@@ -47,7 +47,7 @@ window.onload=function(){
         .append("circle")
             .classed('outerCircle', true)
             .attr("cx", function(d){ return(x(d.week))})
-            .attr("cy", height-30)
+            .attr("cy", height)
             .attr("r", outerCircleRadius)
             .style("fill", "turquoise")
             .style("stroke", 'white')
@@ -61,7 +61,7 @@ window.onload=function(){
         .append("circle")
             .classed('midCircle', true)
             .attr("cx", function(d){ return(x(d.week))})
-            .attr("cy", height-30)
+            .attr("cy", height)
             .attr("r", midCircleRadius)
             .style("fill", "skyblue")
             .style("stroke", 'white')
@@ -75,7 +75,7 @@ window.onload=function(){
         .append("circle")
             .classed('innerCircle', true)
             .attr("cx", function(d){ return(x(d.week))})
-            .attr("cy", height-30)
+            .attr("cy", height)
             .attr("r", innerCircleRadius)
             .style("fill", "greenyellow")
             .style("stroke", "white")
@@ -88,7 +88,7 @@ window.onload=function(){
         .enter()
         .append("text")
             .attr("x", function(d){ return(x(d.week))})
-            .attr("y", height + 50)
+            .attr("y", height + 100)
             .text(function(d){ return("Week " + d.week)})
             .style("text-anchor", "middle");
         
@@ -116,20 +116,20 @@ window.onload=function(){
                 start = x(d.source)    // X position of start node on the X axis
                 end = x(d.target)      // X position of end node
                 if(start != end) {
-                    return ['M', start,',', height-30,    // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
+                    return ['M', start,',', height,    // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
                         'A',                            // This means we're gonna build an elliptical arc
                         (start - end)/2, ',',    // Next 2 lines are the coordinates of the inflexion point. Height of this point is proportional with start - end distance
                         (start - end)/2, 0, 0, ',',
-                        start < end ? 1 : 0, end, ',', height-30] // We always want the arc on top. So if end is before start, putting 0 here turn the arc upside down.
+                        start < end ? 1 : 0, end, ',', height] // We always want the arc on top. So if end is before start, putting 0 here turn the arc upside down.
                         .join(' ');
                         //A25,100 0 1,1 10,0 l 50,0
                 }
                 else {
-                    return ['M', start, ',', height-30,      // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
+                    return ['M', start, ',', height,      // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
                         'C',                                   // This means we're gonna build an cubic Bézier curve
                         start-3*unitDistance/4, ',', height-100, // Next 2 lines are the coordinates of the inflexion point.
                         start+3*unitDistance/4, ',', height-100,
-                        end, ',', height-30]                   // Curve ends at the same point as start.
+                        end, ',', height]                   // Curve ends at the same point as start.
                         .join(' ');
                         //M200,500 C50,350 350,350 200,500
                 }
@@ -141,6 +141,27 @@ window.onload=function(){
             .style("stroke-width", function (d) { 
                 return Math.ceil(d.count/20) - offset; 
             });
+
+        svg
+        .selectAll('mycounts')
+        .data(data.links)
+        .enter()
+        .append('text')
+            .classed('count', true)
+            .attr('x', function(d){
+                return (x(d.source) + x(d.target))/2;
+            })
+            .attr('y', function(d){
+                if(d.source != d.target)
+                    return height - (x(d.target) - x(d.source))/2 - 10;
+                else
+                    return height - 80;
+            })
+            .text(function(d) { 
+                return d.count;
+            })
+            .style("text-anchor", "middle")
+            .style("opacity", 0.25);
 
         // highlighting effects
 
@@ -203,6 +224,15 @@ window.onload=function(){
             .style('stroke-opacity', function (link_d) {
                 return link_d.source === d.week && link_d.target === d.week ? 1 : .2;
             });
+
+            d3.selectAll('.count')
+            .filter(function(link_d){
+                if(link_d.source == d.week && link_d.target == d.week)
+                    return true;
+                else
+                    return false;
+            })
+            .style("opacity", 1);
         })
 
         svg
@@ -216,6 +246,9 @@ window.onload=function(){
 
             d3.selectAll('.link')
             .style("stroke-opacity", 1);
+
+            d3.selectAll('.count')
+            .style('opacity', 0.25);
         })
 
         svg
@@ -240,6 +273,16 @@ window.onload=function(){
             .style('stroke-opacity', function (link_d) {
                 return (link_d.source === d.week || link_d.target === d.week) && (link_d.source != link_d.target) ? 1 : .2;
             });
+
+            // highlight the counts on top of links
+            d3.selectAll('.count')
+            .filter(function(link_d){
+                if ((link_d.source == d.week || link_d.target == d.week) && (link_d.source != link_d.target))
+                    return true;
+                else
+                    return false;
+            })
+            .style("opacity", 1);
         })
 
         svg
@@ -253,6 +296,9 @@ window.onload=function(){
 
             d3.selectAll('.link')
             .style("stroke-opacity", 1);
+
+            d3.selectAll('.count')
+            .style('opacity', 0.25);
         })
     })
 }
