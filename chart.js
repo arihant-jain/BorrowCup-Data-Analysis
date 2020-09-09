@@ -21,7 +21,7 @@ window.onload=function(){
             "translate(" + margin.left + "," + margin.top + ")");
     
     // Read dummy data
-    d3.json('/arcData.json', function(data) {
+    d3.json('/arcSaleData.json', function(data) {
         console.log(data)
 
         // List of node names
@@ -35,12 +35,22 @@ window.onload=function(){
             .range([0, width])
             .domain(allNodes)
         
-        var unitDistance = x(Math.min.apply(null, allNodes)) - x(Math.min.apply(null, allNodes) + 1)
+        var categories = function(dict){
+            return Object.keys(dict).slice(1);
+        } (data.nodes[0]);
+        
+        // set the color scale
+        var color = d3.scaleOrdinal()
+        .domain(categories)
+        .range(["greenyellow", "skyblue", "turquoise"]);
+        
+        var unitDistance = x(Math.min.apply(null, allNodes) + 1) - x(Math.min.apply(null, allNodes));
+        var radius = unitDistance/3;
         
         // Add circle for the nodes
 
         // outer circle for uses linking to other weeks (i.e. links between 2 different nodes (weeks))
-        svg
+        /* svg
         .selectAll("mynodes")
         .data(data.nodes)
         .enter()
@@ -79,7 +89,44 @@ window.onload=function(){
             .attr("r", innerCircleRadius)
             .style("fill", "greenyellow")
             .style("stroke", "white")
-            .style("stroke-width", 2);
+            .style("stroke-width", 2); */
+
+        svg
+        .selectAll('mynodes')
+        .data(data.nodes)
+        .enter()            
+        .each(function(d, i){
+            // Compute the position of each group on the pie:
+            var pie = d3.pie()
+            .sort(null) // Do not sort group by size
+            .value(function(d) {
+                return d.value; 
+            })
+            nodeData = {}
+            for (key in d){
+                if(key != 'week')
+                    nodeData[key] = d[key];
+            }
+            
+            var data_ready = pie(d3.entries(nodeData));
+            // console.log('node arc', data_ready);
+
+            svg.selectAll('mydonuts')
+            .data(data_ready)
+            .enter()
+            .append('path')
+            .attr('d', d3.arc()
+                .innerRadius(radius*0.5)         // This is the size of the donut hole
+                .outerRadius(radius)
+            )
+            .attr('fill', function(d) {
+                return(color(d.data.key)) 
+            })
+            .attr("stroke", "black")
+            .style("stroke-width", "2px")
+            .style("opacity", 0.7)
+            .attr("transform", "translate(" + x(d.week) + ", " + height + ") rotate(120)")
+        });
 
         // And give them a label
         svg
