@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arc Diagram</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
@@ -11,12 +21,29 @@
   <!-- Load color palette -->
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-  <script type="text/javascript" src="chart.js"></script>
+  <title>Arc Diagram</title>
 
 </head>
 <body>
-  <!-- Create a div where the graph will take place -->
-  <div id="dataviz" style="text-align: center;"></div>
-  
+  <div class="container">
+    <div class="form-check-inline">
+      <label class="form-check-label" for="sale">
+        <input type="radio" class="form-check-input" id="sale" name="optradio" value="sale" checked>Sale Data
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <label class="form-check-label" for="return">
+        <input type="radio" class="form-check-input" id="return" name="optradio" value="return">Return Data
+      </label>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Create a div where the graph will take place -->
+      <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz"></div>
+    </div>
+  </div>
+  <script type="text/javascript" src="chart.js"></script>
+  <script type="text/javascript" src="effects.js"></script>
 </body>
 </html>
