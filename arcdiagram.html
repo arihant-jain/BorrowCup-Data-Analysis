@@ -21,20 +21,82 @@
   <!-- Load color palette -->
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
+  <link rel="stylesheet" href="css/font.css">
+
   <title>Arc Diagram</title>
 
 </head>
 <body>
-  <div class="container">
-    <div class="form-check-inline">
-      <label class="form-check-label" for="sale">
-        <input type="radio" class="form-check-input" id="sale" name="optradio" value="sale" checked>Sale Data
-      </label>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <span class="navbar-brand title">
+      <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
+      BorrowCup Data Analysis
+    </span>
+  
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <span class="navbar-text">Created By: Arihant Jain</span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here">
+            <img src="/images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.github.com/arihant-jain">
+            <img src="images/icons/github.svg" alt="GitHub" style="width:40px;"/>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="form-check-inline">
-      <label class="form-check-label" for="return">
-        <input type="radio" class="form-check-input" id="return" name="optradio" value="return">Return Data
-      </label>
+  </nav>
+  <div class="container">
+    <h1 class="display-4 heading">Cups Usage Pattern</h1>
+    <p class="lead text-justify">The following Arc diagram shows the BorrowCups' usage pattern from week 
+      to week using the data collected post 22<sup>nd</sup> Jan 2020. 
+      The donut charts (circles) represent weeks and the arcs represent the weeks a set of cups were used and 
+      their proportions.
+    </p>
+    <p class="lead text-justify">
+      For example, the arc between Week 4 and 5 indicates the number of cups used in Week 4 and then in 
+      Week 5. Similarly, the arc between Week 5 and 9 indicates the number of cups used in Week 5 that 
+      were not used again until Week 9. The width of the arc is proportionate to the number of cups used.
+      The donut charts representing weeks shows the distribution of the cups used once in a week in 
+      <span class="badge" style="background-color: turquoise;">Turquoise</span>, cups with 2 or more 
+      uses in a week in <span class="badge" style="background-color: skyblue;">Skyblue</span>, cups used 
+      solely in a week (out of all weeks) in <span class="badge" style="background-color: greenyellow;">Greenyellow</span> 
+      colour.
+    </p>    
+  </div>
+  <div class="jumbotron jumbotron-fluid py-4 my-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md"></div>
+        <div class="col-lg-2 col-md-3">Data Source:</div>
+        <div class="col-lg-2 col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label" for="sale">
+              <input type="radio" class="form-check-input" id="saleRadio" name="source" value="sale" checked onchange="reloadChart(this)">Sale Data
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label" for="return">
+              <input type="radio" class="form-check-input" id="returnRadio" name="source" value="return" onchange="reloadChart(this)">Return Data
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md"></div>
+      </div>
     </div>
   </div>
   <div class="container-fluid">
@@ -45,5 +107,13 @@
   </div>
   <script type="text/javascript" src="chart.js"></script>
   <script type="text/javascript" src="effects.js"></script>
+
+  <div class="jumbotron jumbotron-fluid my-0">
+    <div class="container">
+      <span class="small">Credit for the GitHub icon goes to
+        <a href='https://dryicons.com/icon/circle-github-icon-8309'>Dryicons</a>
+      </span>
+    </div>
+  </div>
 </body>
 </html>
