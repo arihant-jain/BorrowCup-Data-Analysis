@@ -16,7 +16,7 @@ Bootstrap breakpoints
     font-size: 40px;
 }
 text {
-    font-size: 6px;
+    font-size: 60%;
 }
 
 /* Small devices (phones, 425px and up) */
@@ -28,7 +28,7 @@ text {
         font-size: 48px;
     }
     text {
-        font-size: 8px;
+        font-size: 80%;
     }
 }
 
@@ -38,20 +38,20 @@ text {
         font-size: 56px;
     }
     text {
-        font-size: 10px;
+        font-size: 100%;
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {  
     text {
-        font-size: 12px;
+        font-size: 120%;
     }
 }
 
 /* Large devices (992px and up) */
 @media only screen and (min-width: 992px) {  
     text {
-        font-size: 14px;
+        font-size: 160%;
     }
 }

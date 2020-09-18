@@ -1,0 +1,16 @@
+{
+    "fromSale": {
+        "once": 1022,
+        "twice": 26,
+        "both": 128
+    },
+    "fromReturn": {
+        "once": 747,
+        "twice": 26,
+        "thrice": 0,
+        "onceTwice": 558,
+        "twiceThrice": 5,
+        "onceThrice": 7,
+        "onceTwiceThrice": 4
+    }
+}
