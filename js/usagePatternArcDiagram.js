@@ -1,11 +1,11 @@
 // checking which radio button is selected
 var dataSource = '';
 if(document.getElementById('saleRadio').checked){
-    dataSource = '/arcSaleData.json';
+    dataSource = '../data files/arcSaleData.json';
     buildChart('sale', dataSource);
 }
 else if(document.getElementById('returnRadio').checked){
-    dataSource = '/arcReturnData.json';
+    dataSource = '../data files/arcReturnData.json';
     buildChart('return', dataSource);
 }
 else{
@@ -324,7 +324,8 @@ function buildChart(radioSelection, dataFilePath){
                 }
                 return total;
             })
-            .attr("font-weight", 700);
+            .attr("font-weight", 700)
+            .attr("font-size", "16px");
 
         // write descriptions
         svg2
@@ -371,17 +372,16 @@ window.onresize = function(){
 // Build chart again on radio button selection change
 function reloadChart(element) {
     if (element.id == 'saleRadio') {
-        dataSource = '/arcSaleData.json';
+        dataSource = '../data files/arcSaleData.json';
         console.log('sale here')
         buildChart('sale', dataSource);
     }
     else if (element.id == 'returnRadio') {
-        dataSource = '/arcReturnData.json';
+        dataSource = '../data files/arcReturnData.json';
         console.log('return here')
         buildChart('return', dataSource);
     }
     else{
         alert('Error: Something went wrong!');
     }
-    console.log('built')
 }

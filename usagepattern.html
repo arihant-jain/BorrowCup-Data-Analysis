@@ -27,7 +27,7 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
     <!-- Brand -->
     <span class="navbar-brand title">
       <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
@@ -40,8 +40,16 @@
     </button>
   
     <!-- Navbar links -->
-    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse align-items-baseline" id="collapsibleNavbar">
+      <ul class="navbar-nav align-items-baseline">
+        <li class="nav-item">
+          <a class="nav-link" href="usefreq.html">Use Frequency</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto align-items-baseline">
         <li class="nav-item">
           <span class="navbar-text">Created By: Arihant Jain</span>
         </li>
@@ -102,11 +110,10 @@
   <div class="container-fluid">
     <div class="row">
       <!-- Create a div where the graph will take place -->
-      <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz"></div>
+      <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
     </div>
   </div>
-  <script type="text/javascript" src="chart.js"></script>
-  <script type="text/javascript" src="effects.js"></script>
+  <script type="text/javascript" src="js/usagePatternArcDiagram.js"></script>
 
   <div class="jumbotron jumbotron-fluid my-0">
     <div class="container">

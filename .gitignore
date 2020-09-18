@@ -2,3 +2,5 @@
 .vscode/
 .ipynb_checkpoints/
 analysis.ipynb
+data files/rawReturnData.json
+data files/rawSaleData.json
