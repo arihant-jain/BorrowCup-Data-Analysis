@@ -74,17 +74,17 @@ function buildChart(dataFilePath){
             // console.log('d val', d);
             bar = svg
             .append("rect")
-            .classed('bar', true)
-            .attr("x", x(d.times_used))
-            .attr("y", y(0))
-            .attr("width", x.bandwidth())
-            .attr("height", height - y(0))
-            .attr("fill", color(d.times_used))
-            .attr("stroke", "darkslategrey")
-                .style("stroke-width", "2px")
-            .attr("title", "<p class=' lead text-left'>" + parseInt(d.proportion) + "%" + 
-            "</p><p class='text-left m-0'>" + "Times used: " + d.times_used + "<br>" + 
-            "Number of cups: " + d.number_of_cups + "</p>");
+                .classed('bar', true)
+                .attr("x", x(d.times_used))
+                .attr("y", y(0))
+                .attr("width", x.bandwidth())
+                .attr("height", height - y(0))
+                .attr("fill", color(d.times_used))
+                .attr("stroke", "darkslategrey")
+                    .style("stroke-width", "2px")
+                .attr("title", "<p class=' lead text-left'>" + parseInt(d.proportion) + "%" + 
+                "</p><p class='text-left m-0'>" + "Times used: " + d.times_used + "<br>" + 
+                "Number of cups: " + d.number_of_cups + "</p>");
 
             // Animation
             bar

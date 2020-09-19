@@ -11,7 +11,6 @@ else if(document.getElementById('returnRadio').checked){
 else{
     alert('Error: Something went wrong!');
 }
-//addToolTip();
 
 function buildChart(radioSelection, dataFilePath){
     // remove any prior diagrams
