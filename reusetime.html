@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="css/font.css">
 
-  <title>Return Time Distribution</title>
+  <title>Reuse Time Distribution</title>
 
 </head>
 <body>
@@ -45,11 +45,11 @@
         <li class="nav-item">
           <a class="nav-link" href="usefreq.html">Use Frequency</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="returntime.html">Return Time</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="reusetime.html">Reuse Time</a>
+        <li class="nav-item active">
+            <a class="nav-link" href="reusetime.html">Reuse Time</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
@@ -73,28 +73,16 @@
     </div>
   </nav>
   <div class="container">
-    <h1 class="display-4 heading">Return Time Distribution</h1>
-    <p class="lead text-justify">The following histogram shows the time taken (in days) to return the cup 
-      after each use. It makes use of <i>sale</i> and <i>return</i> records to calculate this time.
+    <h1 class="display-4 heading">Reuse Time Distribution</h1>
+    <p class="lead text-justify">The following histogram shows the time taken (in days) for a cup to get 
+        reused. It makes use of 2 consecutive <i>sale</i> or <i>return</i> records to calculate this time.
     </p>
     <p class="lead text-justify">      
-      Two kinds of data sources are available to use. True Records data source utilises the <i>sale-return</i> 
-      pairs that were actually scanned and saved in the database. Where one of two was missing, i.e. either 
-      <i>sale</i> or <i>return</i>, those records were discarded before calculation.
+      Due to missing records for <i>sales</i>, total number of uses are almost half that of <i>returns</i>. 
+      <i>Sale</i> and <i>Return</i> data source options are provided to allow users to corroborate the 
+      patterns.
     </p>
-    <p class="lead text-justify">
-      Imputed Records data source uses true records as well as single records (<i>sale</i> or <i>return</i>) where 
-      their pair record can be imputed (after estimation) based on the cup history. 
-      
-      For example, if the <i>sale</i> record for a cup is missing but it has a scanned <i>return</i> record, then its 
-      <i>sale</i> was estimated to be 10 hours after the previous <i>return</i>, assumming a previous scanned <i>return</i> 
-      is available. Similarly, if the <i>return</i> is missing but not the <i>sale</i>, the <i>return</i> was estimated to 
-      be 10 hours before the next <i>sale</i>, assuming a next scanned <i>sale</i> is available. 
-      
-      This helps us get an upper limit on the return times for the cups where one of the pair 
-      (<i>sale-return</i>) is missing.
-    </p>
-    <p>Please Note: Instances where the cup returned after 20 days have been boxed in the last bin. 
+    <p>Please Note: Instances where the cup was reused after 30 days have been boxed in the last bin. 
       Data post 22<sup>nd</sup> January, 2020 has been used to build the chart.
     </p>
   </div>
@@ -104,14 +92,14 @@
         <div class="col-md-3">Data Source:</div>
         <div class="col-md-3">
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input source" id="trueRadio" name="source" value="0" checked>
-            <label class="custom-control-label" for="trueRadio">Only True Records</label>
+            <input type="radio" class="custom-control-input source" id="saleRadio" name="source" value="0" checked>
+            <label class="custom-control-label" for="saleRadio">Sale Records</label>
           </div>
         </div>
         <div class="col-md-3">
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input source" id="imputedRadio" name="source" value="1">
-            <label class="custom-control-label" for="imputedRadio">With Imputed Records</label>
+            <input type="radio" class="custom-control-input source" id="returnRadio" name="source" value="1">
+            <label class="custom-control-label" for="returnRadio">Return Records</label>
           </div>
         </div>
         <div class="col-md-3">
@@ -131,7 +119,7 @@
       <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
     </div>
   </div>
-  <script type="text/javascript" src="js/returnTimeHistogram.js"></script>
+  <script type="text/javascript" src="js/reuseTimeHistogram.js"></script>
 
   <div class="jumbotron jumbotron-fluid my-0">
     <div class="container">
