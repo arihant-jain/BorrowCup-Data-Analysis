@@ -70,7 +70,16 @@ function update(dataFilePath, binWidth){
         var maxFreq = d3.max(bins, function(d) { return d.length; });
 
         // calculate max tick on y axis
-        var gap = Math.round(maxFreq/1000)*100;
+        var num = maxFreq/10;
+        var digits = 0;
+        // count the digits to the left of decimal in num
+        while(num > 0){
+            num = Math.floor(num/10);
+            digits += 1;
+        }
+        // this number will help us find gap
+        var divideby = 10**(digits - 1);
+        var gap = Math.round(maxFreq/(10*divideby))*divideby;
         var maxTick = Math.ceil(maxFreq/gap)*gap;
 
         // Y axis: scale and draw:
@@ -84,6 +93,10 @@ function update(dataFilePath, binWidth){
         // color scale (only for fun - not needed!)
         var color = d3.scaleSequential().domain([Math.max.apply(null, x.ticks(maxDayValue/binWidth)), 0])
         .interpolator(d3.interpolateCool);
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Histogram bars
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Join the rect with the bins data
         var bars = svg.selectAll("rect")
@@ -108,6 +121,10 @@ function update(dataFilePath, binWidth){
                 return color(d.x0);
             });
                 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Adding Percents
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         svg
         .selectAll('.percents')
         .remove();
@@ -147,8 +164,16 @@ function update(dataFilePath, binWidth){
         // Kernel Density Plot
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
+        // Compute kernel density estimation (3 is the bandwidth used for smoothing)
+        smoothness = 3;     // bandwidth
+        var kde = kernelDensityEstimator(kernelEpanechnikov(smoothness), x.ticks(maxDayValue/binWidth));
+        var density =  kde(data.map(function(d){  return d.duration; }) );
+
         // define domain for right y axis
-        ky.domain([0, d3.max(bins, d => d.length) / data.length]);
+        var maxValue = Math.max.apply(null, density.map(function(d){
+            return d[1];
+        }))
+        ky.domain([0, maxValue]);
 
         // draw right y axis
         kyAxis
@@ -156,11 +181,6 @@ function update(dataFilePath, binWidth){
         .duration(1000)
         .attr("transform", "translate("+ width + ",0)")
         .call(d3.axisRight(ky));
-
-        // Compute kernel density estimation (2 is the bandwidth used for smoothing)
-        smoothness = 2;     // bandwidth
-        var kde = kernelDensityEstimator(kernelEpanechnikov(smoothness), x.ticks(maxDayValue/binWidth));
-        var density =  kde(data.map(function(d){  return d.duration; }) );
 
         // First remove prior plots and then plot the area
         svg
@@ -194,7 +214,7 @@ function update(dataFilePath, binWidth){
             .classed('total', true)
             .attr("x", width/2)
             .attr("y", 0)
-            .text("Total Cups: " + data.length)
+            .text("Total Uses: " + data.length)
                 .style("text-anchor", "middle");
 
         // adding bootstrap tooltip
@@ -246,13 +266,8 @@ update('../data files/durations.csv', 1);
 // Listen to the button -> update if user change it
 d3.select("#binWidth").on("change", function() {
     // checking which radio button is selected
-    var source = '';
-    if(document.getElementById('trueRadio').checked){
-        source = '../data files/durations.csv';
-    }
-    else {
-        source = '../data files/durationsImputed.csv';
-    }
+    var isTrueChecked = document.getElementById('trueRadio').checked;
+    var source = isTrueChecked ? '../data files/durations.csv' : '../data files/durationsImputed.csv';
     update(source, this.options[this.selectedIndex].value);
 });
 
