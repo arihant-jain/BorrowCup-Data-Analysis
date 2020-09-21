@@ -1,16 +1,84 @@
 {
-    "fromSale": {
-        "once": 1022,
-        "twice": 26,
-        "both": 128
-    },
-    "fromReturn": {
-        "once": 747,
-        "twice": 26,
-        "thrice": 0,
-        "onceTwice": 558,
-        "twiceThrice": 5,
-        "onceThrice": 7,
-        "onceTwiceThrice": 4
-    }
+    "fromSale": [
+        {
+            "sets": [
+                "Once"
+            ],
+            "size": 1150,
+            "label": "1022"
+        },
+        {
+            "sets": [
+                "Twice"
+            ],
+            "size": 154,
+            "label": "26"
+        },
+        {
+            "sets": [
+                "Once",
+                "Twice"
+            ],
+            "size": 128,
+            "label": "128"
+        }
+    ],
+    "saleUnion": 1176,
+    "fromReturn": [
+        {
+            "sets": [
+                "Once"
+            ],
+            "size": 1308,
+            "label": "747"
+        },
+        {
+            "sets": [
+                "Twice"
+            ],
+            "size": 585,
+            "label": "26"
+        },
+        {
+            "sets": [
+                "Thrice"
+            ],
+            "size": 8,
+            "label": "0"
+        },
+        {
+            "sets": [
+                "Once",
+                "Twice"
+            ],
+            "size": 558,
+            "label": "558"
+        },
+        {
+            "sets": [
+                "Twice",
+                "Thrice"
+            ],
+            "size": 5,
+            "label": "5"
+        },
+        {
+            "sets": [
+                "Once",
+                "Thrice"
+            ],
+            "size": 7,
+            "label": "7"
+        },
+        {
+            "sets": [
+                "Once",
+                "Twice",
+                "Thrice"
+            ],
+            "size": 4,
+            "label": "4"
+        }
+    ],
+    "returnUnion": 1335
 }
