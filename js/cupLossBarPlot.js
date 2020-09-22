@@ -75,7 +75,7 @@ function update(dataFilePath){
         .call(d3.axisLeft(y));
 
         var color = d3.scaleSequential().domain([Math.min.apply(null, xValues), Math.max.apply(null, xValues)])
-        .interpolator(d3.interpolateViridis);
+        .interpolator(d3.interpolateCool);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Bars
