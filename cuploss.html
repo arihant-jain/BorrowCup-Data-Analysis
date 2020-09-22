@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+
+  <!-- Load color palette -->
+  <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
+
+  <link rel="stylesheet" href="css/font.css">
+
+  <title>Cups Loss Bar Chart</title>
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
+    <!-- Brand -->
+    <span class="navbar-brand title">
+      <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
+      BorrowCup Data Analysis
+    </span>
+  
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse align-items-baseline" id="collapsibleNavbar">
+      <ul class="navbar-nav align-items-baseline">
+        <li class="nav-item">
+          <a class="nav-link" href="usefreq.html">Use Frequency</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="returntime.html">Return Time</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="reusetime.html">Reuse Time</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="cuploss.html">Cup Loss</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto align-items-baseline">
+        <li class="nav-item">
+          <span class="navbar-text">Created By: Arihant Jain</span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
+            <img src="/images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.github.com/arihant-jain" target="_blank" rel="noopener noreferrer">
+            <img src="images/icons/github.svg" alt="GitHub" style="width:40px;"/>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container my-5">
+    <h1 class="display-4 heading">Suspected Cup Loss</h1>
+    <p class="lead text-justify">The following two bar charts shows the percentages of cups that are, one, 
+      suspected to have been lost, two, may still be in the system. It has been assumed that if a cup 
+      isn't borrowed or returned (no <i>sale</i> or <i>return</i> record) for 21 days or more, it will be  
+      considered lost.
+    </p>
+    <p class="lead text-justify">
+      The first chart below shows the number of <i>uses</i> cups had before they were lost. The second chart 
+      shows the rest of the cups and their <i>uses</i>. It can be seen that this chart matches the pattern 
+      of the <a href="usefreq.html">Use Frequency bar chart</a>, which is expected.
+    </p>
+    <p class="lead text-justify">      
+      Due to <i>return</i> records being 99.9% accurate, there is negligible effect of missing <i>sale</i> 
+      records on the below charts as any cups without <i>sale</i>scans must have been scanned on <i>return</i>.
+      However, it is a possibility that some returned cups may have been sitting in the facility or at cafes 
+      for more than 21 days. Since this is a preliminary analysis on lost cups, such a possibility has been
+      set aside and may be considered in a much thorough analysis later.
+    </p>
+    <p>Please Note: Data post 22<sup>nd</sup> January, 2020 has been used to build these charts.
+    </p>
+  </div>
+  <div class="jumbotron jumbotron-fluid py-4 my-0">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-3">Chart:</div>
+        <div class="col-md-3">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input chart-type" id="lostRadio" name="chartType" value="0" checked>
+            <label class="custom-control-label" for="lostRadio">Cups Lost</label>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input chart-type" id="notLostRadio" name="chartType" value="1">
+            <label class="custom-control-label" for="notLostRadio">Cups Not Lost</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Create a div where the graph will take place -->
+      <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/cupLossBarPlot.js"></script>
+
+  <div class="jumbotron jumbotron-fluid my-0">
+    <div class="container">
+      <span class="small">Credit for the GitHub icon goes to
+        <a href='https://dryicons.com/icon/circle-github-icon-8309'>Dryicons</a>
+      </span>
+    </div>
+  </div>
+</body>
+</html>
