@@ -126,6 +126,107 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
             .lower();
     });
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Legends
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    var legendHeight = height/10;
+
+    // left venn legend
+    // draw svg
+    var leftLegendSVG = d3.select("#datavizleft")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", legendHeight + margin.bottom)
+    .append("g")
+        .attr("transform",
+            "translate(" + margin.left + ",0)");    
+
+    // draw circles
+    leftLegendSVG
+    .selectAll(".legendDots")
+    .data(data.saleCategories)
+    .enter()
+    .append("circle")
+        .classed("legendDots", true)
+        .attr("cx", function(d, i){
+            var categoryWidth =  width/data.saleCategories.length;
+            return i*categoryWidth;
+        })
+        .attr("cy", legendHeight/2)
+        .attr("r", 10);
+    
+    // write labels
+    leftLegendSVG
+    .selectAll("text")
+    .data(data.saleCategories)
+    .enter()
+    .append("text")
+        .classed("title", true)
+        .attr("x", function(d, i){
+            var categoryWidth =  width/data.saleCategories.length;
+            return i*categoryWidth + categoryWidth/5;
+        })
+        .attr("y", legendHeight/2+7)
+        .text(function(d){
+            return d;
+        });
+
+    // right venn legend
+    // draw SVG
+    var rightLegendSVG = d3.select("#datavizright")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", legendHeight)
+    .append("g")
+        .attr("transform",
+            "translate(" + margin.left + ",0)");    
+
+    // draw circles
+    rightLegendSVG
+    .selectAll(".legendDots")
+    .data(data.returnCategories)
+    .enter()
+    .append("circle")
+        .classed("legendDots", true)
+        .attr("cx", function(d, i){
+            var categoryWidth = width/data.returnCategories.length;
+            return i*categoryWidth;
+        })
+        .attr("cy", legendHeight/2)
+        .attr("r", 10);
+    
+    // write labels
+    rightLegendSVG
+    .selectAll("text")
+    .data(data.returnCategories)
+    .enter()
+    .append("text")
+        .classed("title", true)
+        .attr("x", function(d, i){
+            var categoryWidth =  width/data.returnCategories.length;
+            return i*categoryWidth + categoryWidth/5;
+        })
+        .attr("y", legendHeight/2+7)
+        .text(function(d){
+            return d;
+        });
+    
+    // color circles
+    d3
+    .selectAll(".legendDots")
+        .style("fill-opacity", 0.6)
+        .style("fill", function(d, i){
+            return color[i];
+        })
+        .style("stroke-width", 1)
+        .style("stroke-opacity", 1)
+        .style("stroke", "fff");
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Titles and Totals
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // add title
     leftSVG
     .append("text")
