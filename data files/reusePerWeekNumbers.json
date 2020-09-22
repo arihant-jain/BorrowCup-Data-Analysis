@@ -24,6 +24,10 @@
         }
     ],
     "saleUnion": 1176,
+    "saleCategories": [
+        "Once",
+        "Twice"
+    ],
     "fromReturn": [
         {
             "sets": [
@@ -80,5 +84,10 @@
             "label": "4"
         }
     ],
-    "returnUnion": 1335
+    "returnUnion": 1335,
+    "returnCategories": [
+        "Once",
+        "Twice",
+        "Thrice"
+    ]
 }
