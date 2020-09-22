@@ -29,7 +29,6 @@ function buildChart(dataFilePath){
     d3.csv(dataFilePath, function(data) {
         console.log(data);
 
-
         // get x values
         xValues = data.map(function(d) { return parseInt(d.times_used); });
         xValues.sort(function(a, b){return a - b});
@@ -49,8 +48,8 @@ function buildChart(dataFilePath){
                 .style("text-anchor", "middle");
         
         // find max value at y axis
-        allNumbers = data.map(function(d) { return parseInt(d.number_of_cups); });
-        maxNumber = Math.ceil(Math.max.apply(null, allNumbers)/50)*50;
+        var allNumbers = data.map(function(d) { return parseInt(d.number_of_cups); });
+        var maxNumber = Math.ceil(Math.max.apply(null, allNumbers)/50)*50;
 
         // Add Y axis
         var y = d3.scaleLinear()
@@ -67,7 +66,7 @@ function buildChart(dataFilePath){
         
         // Bars
         svg
-        .selectAll("bar")
+        .selectAll(".bar")
         .data(data)
         .enter()
         .each(function(d, i){
@@ -99,7 +98,7 @@ function buildChart(dataFilePath){
             .append('text')
                 .attr("x", x(d.times_used))
                 .attr("y", y(d.number_of_cups) - height/20)
-                .attr("transform", "translate(" + x.bandwidth()/2 + "0)")
+                .attr("transform", "translate(" + x.bandwidth()/2 + ", 0)")
                 .text(parseInt(d.proportion)+"%")
                     .style("text-anchor", "middle");
         })

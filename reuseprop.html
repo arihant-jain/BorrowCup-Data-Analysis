@@ -22,6 +22,7 @@
   <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
 
   <!-- Load venn diagram library -->
+  <!-- https://github.com/upsetjs/venn.js -->
   <script src="js/libraries/venn.min.js"></script>
 
   <link rel="stylesheet" href="css/font.css">
@@ -49,16 +50,19 @@
           <a class="nav-link" href="usefreq.html">Use Frequency</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="returntime.html">Return Time</a>
+          <a class="nav-link" href="returntime.html">Return Time</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="reusetime.html">Reuse Time</a>
+          <a class="nav-link" href="reusetime.html">Reuse Time</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
+          <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cuploss.html">Cup Loss</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto align-items-baseline">
@@ -81,10 +85,12 @@
   <div class="container my-5">
     <h1 class="display-4 heading">Reuse Proportions</h1>
     <p class="lead text-justify">The following venn diagrams shows the proportions of cups' uses per week. 
-        Each circle represents a category: Once, Twice or Thrice (per week). It is evident from the diagrams 
-        below that most of the cups have only been used <i>Once</i> a week, some 10 to 40 percent were used 
-        either <i>Once</i> or <i>Twice</i>, and only a minuscule amount of cups were used <i>three</i> times 
-        in some weeks.
+        Each circle represents a category: <i>Once, Twice</i> or <i>Thrice</i> (per week). It is evident 
+        from the diagrams below that most of the cups have only been used <i>Once</i> a week, some 10 to 
+        40 percent were used either <i>Once</i> or <i>Twice</i>, and only a minuscule amount of cups were 
+        used <i>three</i> times in some weeks. The numbers on the diagrams denote the amount of cups 
+        inside each disjoint group. However, the precentages that appear on mouse hover denote the 
+        percentage of cups (out of total cups) inside the highlighted boundary.
     </p>
     <p class="lead text-justify">      
       Due to missing records for <i>sales</i>, the <i>sales</i> venn diagram doesn't represent the true or 
@@ -102,15 +108,6 @@
 
       <!-- Create a div where the graph will take place -->
       <div class="col-md-6 px-0 mx-auto" id="datavizright" style="font-size: 10px;"></div>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Create a div where the graph will take place -->
-      <div class="col-lg-6 px-0 mx-auto" id="vizleft" style="font-size: 10px;"></div>
-
-      <!-- Create a div where the graph will take place -->
-      <div class="col-lg-6 px-0 mx-auto" id="vizright" style="font-size: 10px;"></div>
     </div>
   </div>
   <script type="text/javascript" src="js/reusePropVenn.js"></script>
