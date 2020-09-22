@@ -21,17 +21,19 @@
   <!-- Load color palette -->
   <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
 
-  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" href="../css/font.css">
 
-  <title>Cups Loss Bar Chart</title>
+  <title>Cups Usage Pattern</title>
 
 </head>
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
     <!-- Brand -->
     <span class="navbar-brand title">
-      <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
-      BorrowCup Data Analysis
+      <a href="../index.html" class="text-white text-decoration-none">
+        <img src="../images/icons/bc.png" alt="BC logo" style="width:40px;"/>
+        BorrowCup Dashboard
+      </a>
     </span>
   
     <!-- Toggler/collapsibe Button -->
@@ -54,10 +56,10 @@
         <li class="nav-item">
           <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="cuploss.html">Cup Loss</a>
         </li>
       </ul>
@@ -67,53 +69,51 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
-            <img src="/images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
+            <img src="../images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.github.com/arihant-jain" target="_blank" rel="noopener noreferrer">
-            <img src="images/icons/github.svg" alt="GitHub" style="width:40px;"/>
+            <img src="../images/icons/github.svg" alt="GitHub" style="width:40px;"/>
           </a>
         </li>
       </ul>
     </div>
   </nav>
   <div class="container my-5">
-    <h1 class="display-4 heading">Suspected Cup Loss</h1>
-    <p class="lead text-justify">The following two bar charts shows the percentages of cups that are, one, 
-      suspected to have been lost, two, may still be in the system. It has been assumed that if a cup 
-      isn't borrowed or returned (no <i>sale</i> or <i>return</i> record) for 21 days or more, it will be  
-      considered lost.
+    <h1 class="display-4 heading">Cups Usage Pattern</h1>
+    <p class="lead text-justify">The following Arc diagram shows the BorrowCups' usage pattern from week 
+      to week using the data collected post 22<sup>nd</sup> Jan 2020. 
+      The donut charts (circles) represent weeks and the arcs represent the weeks a set of cups were used and 
+      their proportions.
     </p>
     <p class="lead text-justify">
-      The first chart below shows the number of <i>uses</i> cups had before they were lost. The second chart 
-      shows the rest of the cups and their <i>uses</i>. It can be seen that this chart matches the pattern 
-      of the <a href="usefreq.html">Use Frequency bar chart</a>, which is expected.
-    </p>
-    <p class="lead text-justify">      
-      Due to <i>return</i> records being 99.9% accurate, there is negligible effect of missing <i>sale</i> 
-      records on the below charts as any cups without <i>sale</i>scans must have been scanned on <i>return</i>.
-      However, it is a possibility that some returned cups may have been sitting in the facility or at cafes 
-      for more than 21 days. Since this is a preliminary analysis on lost cups, such a possibility has been
-      set aside and may be considered in a much thorough analysis later.
-    </p>
-    <p>Please Note: Data post 22<sup>nd</sup> January, 2020 has been used to build these charts.
-    </p>
+      For example, the arc between Week 4 and 5 indicates the number of cups used in Week 4 and then in 
+      Week 5. Similarly, the arc between Week 5 and 9 indicates the number of cups used in Week 5 that 
+      were not used again until Week 9. The width of the arc is proportionate to the number of cups used.
+      The donut charts representing weeks shows the distribution of the cups used once in a week in 
+      <span class="badge" style="background-color: turquoise;">Turquoise</span>, cups with 2 or more 
+      uses in a week in <span class="badge" style="background-color: skyblue;">Skyblue</span>, cups used 
+      solely in a week (out of all weeks) in <span class="badge" style="background-color: greenyellow;">Greenyellow</span> 
+      colour.
+    </p>    
   </div>
   <div class="jumbotron jumbotron-fluid py-4 my-0">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-3">Chart:</div>
-        <div class="col-md-3">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input chart-type" id="lostRadio" name="chartType" value="0" checked>
-            <label class="custom-control-label" for="lostRadio">Cups Lost</label>
+        <div class="col-lg-2 col-md-3">Data Source:</div>
+        <div class="col-lg-2 col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label" for="saleRadio">
+              <input type="radio" class="form-check-input" id="saleRadio" name="source" value="sale" checked onchange="reloadChart(this)">Sale Data
+            </label>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input chart-type" id="notLostRadio" name="chartType" value="1">
-            <label class="custom-control-label" for="notLostRadio">Cups Not Lost</label>
+        <div class="col-lg-2 col-md-3">
+          <div class="form-check-inline">
+            <label class="form-check-label" for="returnRadio">
+              <input type="radio" class="form-check-input" id="returnRadio" name="source" value="return" onchange="reloadChart(this)">Return Data
+            </label>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@
       <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
     </div>
   </div>
-  <script type="text/javascript" src="js/cupLossBarPlot.js"></script>
+  <script type="text/javascript" src="../js/usagePatternArcDiagram.js"></script>
 
   <div class="jumbotron jumbotron-fluid my-0">
     <div class="container">

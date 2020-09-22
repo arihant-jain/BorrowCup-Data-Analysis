@@ -16,22 +16,24 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
   <!-- Load d3.js -->
-  <script src="https://d3js.org/d3.v4.js"></script>
+  <!-- <script src="https://d3js.org/d3.v4.js"></script> -->
 
   <!-- Load color palette -->
-  <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
+  <!-- <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script> -->
 
   <link rel="stylesheet" href="css/font.css">
 
-  <title>Cups Use Frequency</title>
+  <title>Home - BorrowCup Data Analysis</title>
 
 </head>
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
     <!-- Brand -->
     <span class="navbar-brand title">
-      <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
-      BorrowCup Data Analysis
+        <a href="index.html" class="text-white text-decoration-none">
+            <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
+            BorrowCup Dashboard
+        </a>
     </span>
   
     <!-- Toggler/collapsibe Button -->
@@ -42,28 +44,28 @@
     <!-- Navbar links -->
     <div class="collapse navbar-collapse align-items-baseline" id="collapsibleNavbar">
       <ul class="navbar-nav align-items-baseline">
-        <li class="nav-item active">
-          <a class="nav-link" href="usefreq.html">Use Frequency</a>
+        <li class="nav-item">
+          <a class="nav-link" href="templates/usefreq.html">Use Frequency</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="returntime.html">Return Time</a>
+          <a class="nav-link" href="templates/returntime.html">Return Time</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reusetime.html">Reuse Time</a>
+          <a class="nav-link" href="templates/reusetime.html">Reuse Time</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
+          <a class="nav-link" href="templates/reuseprop.html">Reuse Proportions</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
+          <a class="nav-link" href="templates/usagepattern.html">Usage Pattern</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="cuploss.html">Cup Loss</a>
+          <a class="nav-link" href="templates/cuploss.html">Cup Loss</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto align-items-baseline">
         <li class="nav-item">
-          <span class="navbar-text">Created By: Arihant Jain</span>
+          <span class="navbar-text">Creator: Arihant Jain</span>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
@@ -78,12 +80,24 @@
       </ul>
     </div>
   </nav>
+  <p class="lead text-center mx-0 my-3 px-5 bg-warning text-white">
+    Due to Coronavirus pandemic and operations shutting down, the data has stagnated and the charts 
+    won't update soon.
+  </p>
+  
   <div class="container my-5">
-    <h1 class="display-4 heading">Cups Use Frequency</h1>
-    <p class="lead text-justify">The following bar plot shows the number of cups against their total 
-      individual uses from the date - 22<sup>nd</sup> Jan 2020. It uses Return data to calculate the 
-      numbers and doesn't account for cups that haven't been returned yet.
-    </p>   
+    <p class="lead text-justify">This website serves as a dashboard for the BorrowCup's data. Here, you can view a 
+        number of charts and read about the insights. Click on the links above/side to view any chart.
+    </p>
+  </div>
+  <div class="container my-5">
+    <h2>A bit about BorrowCup</h2>
+    <p class="lead text-justify">BorrowCup is a students’ initiative towards sustainable living funded 
+        by Monash University. According to a statistic, about 1 million disposable coffee cups are used 
+        across Monash University Melbourne campuses every year. This initiative aims to reduce that 
+        number by allowing students and staff to use BorrowCup – a keep cup which can be borrowed from 
+        a cafe and returned in dedicated bins spread across campus at their convenience.
+    </p>
   </div>
   <div class="container-fluid">
     <div class="row">
@@ -91,7 +105,6 @@
       <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
     </div>
   </div>
-  <script type="text/javascript" src="js/useFreqBarPlot.js"></script>
 
   <div class="jumbotron jumbotron-fluid my-0">
     <div class="container">

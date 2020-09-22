@@ -21,17 +21,19 @@
   <!-- Load color palette -->
   <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
 
-  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" href="../css/font.css">
 
-  <title>Cups Usage Pattern</title>
+  <title>Return Time Distribution</title>
 
 </head>
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
     <!-- Brand -->
     <span class="navbar-brand title">
-      <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
-      BorrowCup Data Analysis
+      <a href="../index.html" class="text-white text-decoration-none">
+        <img src="../images/icons/bc.png" alt="BC logo" style="width:40px;"/>
+        BorrowCup Dashboard
+      </a>
     </span>
   
     <!-- Toggler/collapsibe Button -->
@@ -45,7 +47,7 @@
         <li class="nav-item">
           <a class="nav-link" href="usefreq.html">Use Frequency</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="returntime.html">Return Time</a>
         </li>
         <li class="nav-item">
@@ -54,7 +56,7 @@
         <li class="nav-item">
           <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
         </li>
         <li class="nav-item">
@@ -67,52 +69,66 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
-            <img src="/images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
+            <img src="../images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.github.com/arihant-jain" target="_blank" rel="noopener noreferrer">
-            <img src="images/icons/github.svg" alt="GitHub" style="width:40px;"/>
+            <img src="../images/icons/github.svg" alt="GitHub" style="width:40px;"/>
           </a>
         </li>
       </ul>
     </div>
   </nav>
   <div class="container my-5">
-    <h1 class="display-4 heading">Cups Usage Pattern</h1>
-    <p class="lead text-justify">The following Arc diagram shows the BorrowCups' usage pattern from week 
-      to week using the data collected post 22<sup>nd</sup> Jan 2020. 
-      The donut charts (circles) represent weeks and the arcs represent the weeks a set of cups were used and 
-      their proportions.
+    <h1 class="display-4 heading">Return Time Distribution</h1>
+    <p class="lead text-justify">The following histogram shows the time taken (in days) to return the cup 
+      after each use. It makes use of <i>sale</i> and <i>return</i> records to calculate this time.
+    </p>
+    <p class="lead text-justify">      
+      Two kinds of data sources are available to use. True Records data source utilises the <i>sale-return</i> 
+      pairs that were actually scanned and saved in the database. Where one of two was missing, i.e. either 
+      <i>sale</i> or <i>return</i>, those records were discarded before calculation.
     </p>
     <p class="lead text-justify">
-      For example, the arc between Week 4 and 5 indicates the number of cups used in Week 4 and then in 
-      Week 5. Similarly, the arc between Week 5 and 9 indicates the number of cups used in Week 5 that 
-      were not used again until Week 9. The width of the arc is proportionate to the number of cups used.
-      The donut charts representing weeks shows the distribution of the cups used once in a week in 
-      <span class="badge" style="background-color: turquoise;">Turquoise</span>, cups with 2 or more 
-      uses in a week in <span class="badge" style="background-color: skyblue;">Skyblue</span>, cups used 
-      solely in a week (out of all weeks) in <span class="badge" style="background-color: greenyellow;">Greenyellow</span> 
-      colour.
-    </p>    
+      Imputed Records data source uses true records as well as single records (<i>sale</i> or <i>return</i>) where 
+      their pair record can be imputed (after estimation) based on the cup history. 
+      
+      For example, if the <i>sale</i> record for a cup is missing but it has a scanned <i>return</i> record, then its 
+      <i>sale</i> was estimated to be 10 hours after the previous <i>return</i>, assumming a previous scanned <i>return</i> 
+      is available. Similarly, if the <i>return</i> is missing but not the <i>sale</i>, the <i>return</i> was estimated to 
+      be 10 hours before the next <i>sale</i>, assuming a next scanned <i>sale</i> is available. 
+      
+      This helps us get an upper limit on the return times for the cups where one of the pair 
+      (<i>sale-return</i>) is missing.
+    </p>
+    <p>Please Note: Instances where the cup returned after 20 days have been boxed in the last bin. 
+      Data post 22<sup>nd</sup> January, 2020 has been used to build the chart.
+    </p>
   </div>
   <div class="jumbotron jumbotron-fluid py-4 my-0">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-2 col-md-3">Data Source:</div>
-        <div class="col-lg-2 col-md-3">
-          <div class="form-check-inline">
-            <label class="form-check-label" for="saleRadio">
-              <input type="radio" class="form-check-input" id="saleRadio" name="source" value="sale" checked onchange="reloadChart(this)">Sale Data
-            </label>
+        <div class="col-md-3">Data Source:</div>
+        <div class="col-md-3">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input source" id="trueRadio" name="source" value="0" checked>
+            <label class="custom-control-label" for="trueRadio">Only True Records</label>
           </div>
         </div>
-        <div class="col-lg-2 col-md-3">
-          <div class="form-check-inline">
-            <label class="form-check-label" for="returnRadio">
-              <input type="radio" class="form-check-input" id="returnRadio" name="source" value="return" onchange="reloadChart(this)">Return Data
-            </label>
+        <div class="col-md-3">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input source" id="imputedRadio" name="source" value="1">
+            <label class="custom-control-label" for="imputedRadio">With Imputed Records</label>
           </div>
+        </div>
+        <div class="col-md-3">
+          <select name="bins" id="binWidth" class="custom-select custom-select-sm">
+            <option value="0.5">Half Day Bin</option>
+            <option value="1" selected>1 Day Bin</option>
+            <option value="2">2 Days Bin</option>
+            <option value="5">5 Days Bin</option>
+          </select>
         </div>
       </div>
     </div>
@@ -123,7 +139,7 @@
       <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
     </div>
   </div>
-  <script type="text/javascript" src="js/usagePatternArcDiagram.js"></script>
+  <script type="text/javascript" src="../js/returnTimeHistogram.js"></script>
 
   <div class="jumbotron jumbotron-fluid my-0">
     <div class="container">
