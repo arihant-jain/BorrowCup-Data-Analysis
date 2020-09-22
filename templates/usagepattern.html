@@ -103,17 +103,15 @@
       <div class="row justify-content-center">
         <div class="col-lg-2 col-md-3">Data Source:</div>
         <div class="col-lg-2 col-md-3">
-          <div class="form-check-inline">
-            <label class="form-check-label" for="saleRadio">
-              <input type="radio" class="form-check-input" id="saleRadio" name="source" value="sale" checked onchange="reloadChart(this)">Sale Data
-            </label>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" id="saleRadio" name="source" value="sale" checked onchange="reloadChart(this)">
+            <label class="custom-control-label" for="saleRadio">Sale Data</label>
           </div>
         </div>
         <div class="col-lg-2 col-md-3">
-          <div class="form-check-inline">
-            <label class="form-check-label" for="returnRadio">
-              <input type="radio" class="form-check-input" id="returnRadio" name="source" value="return" onchange="reloadChart(this)">Return Data
-            </label>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" class="custom-control-input" id="returnRadio" name="source" value="return" onchange="reloadChart(this)">
+            <label class="custom-control-label" for="returnRadio">Return Data</label>
           </div>
         </div>
       </div>
