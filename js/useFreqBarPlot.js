@@ -144,8 +144,3 @@ function buildChart(dataFilePath){
         
     });    
 }
-
-// Call our resize function if the window size is changed.
-window.onresize = function(){
-    return location.reload();
-};

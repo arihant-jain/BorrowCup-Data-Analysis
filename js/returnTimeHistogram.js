@@ -293,9 +293,4 @@ function kernelEpanechnikov(k) {
     return function(v) {
         return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
     };
-}  
-
-// Call our resize function if the window size is changed.
-window.onresize = function(){
-    return location.reload();
-};
+}

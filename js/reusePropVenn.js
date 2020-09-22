@@ -283,9 +283,3 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
     });
 
 });
-
-// Call our resize function if the window size is changed.
-window.onresize = function(){
-    alert('page size changed')
-    return location.reload();
-};

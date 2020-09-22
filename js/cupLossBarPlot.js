@@ -236,9 +236,4 @@ d3.selectAll(".chart-type").on("change",function(){
     var source = this.value == 0 ? '../data files/numCupsLost.csv' : '../data files/numCupsNotLost.csv';
     
     update(source);
-})  
-
-// Call our resize function if the window size is changed.
-window.onresize = function(){
-    return location.reload();
-};
+});

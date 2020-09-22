@@ -363,11 +363,6 @@ function buildChart(radioSelection, dataFilePath){
     });    
 }
 
-window.onresize = function(){
-    return location.reload();
-};
-//Call our resize function if the window size is changed.
-
 // Build chart again on radio button selection change
 function reloadChart(element) {
     if (element.id == 'saleRadio') {
