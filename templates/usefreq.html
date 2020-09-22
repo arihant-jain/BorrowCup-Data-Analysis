@@ -21,17 +21,19 @@
   <!-- Load color palette -->
   <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
 
-  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" href="../css/font.css">
 
-  <title>Reuse Time Distribution</title>
+  <title>Cups Use Frequency</title>
 
 </head>
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
     <!-- Brand -->
     <span class="navbar-brand title">
-      <img src="images/icons/bc.png" alt="BC logo" style="width:40px;"/>
-      BorrowCup Data Analysis
+      <a href="../index.html" class="text-white text-decoration-none">
+        <img src="../images/icons/bc.png" alt="BC logo" style="width:40px;"/>
+        BorrowCup Dashboard
+      </a>
     </span>
   
     <!-- Toggler/collapsibe Button -->
@@ -42,13 +44,13 @@
     <!-- Navbar links -->
     <div class="collapse navbar-collapse align-items-baseline" id="collapsibleNavbar">
       <ul class="navbar-nav align-items-baseline">
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="usefreq.html">Use Frequency</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="returntime.html">Return Time</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="reusetime.html">Reuse Time</a>
         </li>
         <li class="nav-item">
@@ -67,57 +69,23 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
-            <img src="/images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
+            <img src="../images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.github.com/arihant-jain" target="_blank" rel="noopener noreferrer">
-            <img src="images/icons/github.svg" alt="GitHub" style="width:40px;"/>
+            <img src="../images/icons/github.svg" alt="GitHub" style="width:40px;"/>
           </a>
         </li>
       </ul>
     </div>
   </nav>
   <div class="container my-5">
-    <h1 class="display-4 heading">Reuse Time Distribution</h1>
-    <p class="lead text-justify">The following histogram shows the time taken (in days) for a cup to get 
-        reused. It makes use of 2 consecutive <i>sale</i> or <i>return</i> records to calculate this time.
-    </p>
-    <p class="lead text-justify">      
-      Due to missing records for <i>sales</i>, total number of uses are almost half that of <i>returns</i>. 
-      <i>Sale</i> and <i>Return</i> data source options are provided to allow users to corroborate the 
-      patterns.
-    </p>
-    <p>Please Note: Instances where the cup was reused after 30 days have been boxed in the last bin. 
-      Data post 22<sup>nd</sup> January, 2020 has been used to build the chart.
-    </p>
-  </div>
-  <div class="jumbotron jumbotron-fluid py-4 my-0">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-3">Data Source:</div>
-        <div class="col-md-3">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input source" id="saleRadio" name="source" value="0" checked>
-            <label class="custom-control-label" for="saleRadio">Sale Records</label>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" class="custom-control-input source" id="returnRadio" name="source" value="1">
-            <label class="custom-control-label" for="returnRadio">Return Records</label>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <select name="bins" id="binWidth" class="custom-select custom-select-sm">
-            <option value="0.5">Half Day Bin</option>
-            <option value="1" selected>1 Day Bin</option>
-            <option value="2">2 Days Bin</option>
-            <option value="5">5 Days Bin</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    <h1 class="display-4 heading">Cups Use Frequency</h1>
+    <p class="lead text-justify">The following bar plot shows the number of cups against their total 
+      individual uses from the date - 22<sup>nd</sup> Jan 2020. It uses Return data to calculate the 
+      numbers and doesn't account for cups that haven't been returned yet.
+    </p>   
   </div>
   <div class="container-fluid">
     <div class="row">
@@ -125,7 +93,7 @@
       <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
     </div>
   </div>
-  <script type="text/javascript" src="js/reuseTimeHistogram.js"></script>
+  <script type="text/javascript" src="../js/useFreqBarPlot.js"></script>
 
   <div class="jumbotron jumbotron-fluid my-0">
     <div class="container">
