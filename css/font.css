@@ -12,6 +12,9 @@ Bootstrap breakpoints
 .title {
     font-size: 18px;
 }
+.smaller-title{
+    font-size: 14px;
+}
 .heading {
     font-size: 40px;
 }
@@ -23,6 +26,9 @@ text {
 @media only screen and (min-width: 425px) {  
     .title {
         font-size: 20px;
+    }
+    .smaller-title{
+        font-size: 16px;
     }
     .heading {
         font-size: 48px;

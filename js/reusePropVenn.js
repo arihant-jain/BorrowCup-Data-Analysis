@@ -131,6 +131,7 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     var legendHeight = height/10;
+    var dotRadius = 10;
 
     // left venn legend
     // draw svg
@@ -139,8 +140,10 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
         .attr("width", width + margin.left + margin.right)
         .attr("height", legendHeight + margin.bottom)
     .append("g")
-        .attr("transform",
-            "translate(" + margin.left + ",0)");    
+        .attr("transform", function(){
+            var fromTop = (legendHeight + margin.bottom)/2 - dotRadius/2;
+            return "translate(" + margin.left + "," + fromTop + ")";
+        });    
 
     // draw circles
     leftLegendSVG
@@ -154,7 +157,7 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
             return i*categoryWidth;
         })
         .attr("cy", legendHeight/2)
-        .attr("r", 10);
+        .attr("r", dotRadius);
     
     // write labels
     leftLegendSVG
@@ -177,10 +180,12 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
     var rightLegendSVG = d3.select("#datavizright")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", legendHeight)
+        .attr("height", legendHeight + margin.bottom)
     .append("g")
-        .attr("transform",
-            "translate(" + margin.left + ",0)");    
+        .attr("transform", function(){
+            var fromTop = (legendHeight + margin.bottom)/2 - dotRadius/2;
+            return "translate(" + margin.left + "," + fromTop + ")";
+        });    
 
     // draw circles
     rightLegendSVG
@@ -233,6 +238,7 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
         .classed('title', true)
         .attr("x", width/2)
         .attr("y", -height*0.2)
+        .attr("font-weight", 500)
         .text("From Sales")
             .style("text-anchor", "middle");
     rightSVG
@@ -240,18 +246,21 @@ d3.json('../data files/reusePerWeekNumbers.json', function(data){
         .classed('title', true)
         .attr("x", width/2)
         .attr("y", -height*0.2)
+        .attr("font-weight", 500)
         .text("From Returns")
             .style("text-anchor", "middle");
 
     // add totals
     leftSVG
     .append("text")
+        .classed('smaller-title', true)
         .attr("x", width/2)
         .attr("y", -height*0.1)
         .text("Total cups: " + data.saleUnion)
             .style("text-anchor", "middle");
     rightSVG
     .append("text")
+        .classed('smaller-title', true)
         .attr("x", width/2)
         .attr("y", -height*0.1)
         .text("Total cups: " + data.returnUnion)
