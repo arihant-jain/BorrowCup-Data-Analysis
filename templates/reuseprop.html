@@ -31,59 +31,9 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
-    <!-- Brand -->
-    <span class="navbar-brand title">
-      <a href="../index.html" class="text-white text-decoration-none">
-        <img src="../images/icons/bc.png" alt="BC logo" style="width:40px;"/>
-        BorrowCup Dashboard
-      </a>
-    </span>
+  <div id="navigation-div"></div>
+  <script src="../js/helpers/navigationBar.js"></script>
   
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse align-items-baseline" id="collapsibleNavbar">
-      <ul class="navbar-nav align-items-baseline">
-        <li class="nav-item">
-          <a class="nav-link" href="usefreq.html">Use Frequency</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="returntime.html">Return Time</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="reusetime.html">Reuse Time</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="reuseprop.html">Reuse Proportions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="usagepattern.html">Usage Pattern</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cuploss.html">Cup Loss</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto align-items-baseline">
-        <li class="nav-item">
-          <span class="navbar-text">Created By: Arihant Jain</span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
-            <img src="../images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://www.github.com/arihant-jain" target="_blank" rel="noopener noreferrer">
-            <img src="../images/icons/github.svg" alt="GitHub" style="width:40px;"/>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
   <div class="container my-5">
     <h1 class="display-4 heading">Reuse Proportions</h1>
     <p class="lead text-justify">The following venn diagrams shows the proportions of cups' uses per week. 
@@ -115,12 +65,9 @@
   <script type="text/javascript" src="../js/reusePropVenn.js"></script>
   <script type="text/javascript" src="../js/reloadOnResize.js"></script>
 
-  <div class="jumbotron jumbotron-fluid my-0">
-    <div class="container">
-      <span class="small">Credit for the GitHub icon goes to
-        <a href='https://dryicons.com/icon/circle-github-icon-8309'>Dryicons</a>
-      </span>
-    </div>
-  </div>
+  <div id="footer-div"></div>
+  <script>
+    $('#footer-div').load('../footer.html .page-footer');
+  </script>
 </body>
 </html>

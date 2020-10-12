@@ -27,59 +27,14 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark align-items-baseline">
-    <!-- Brand -->
-    <span class="navbar-brand title">
-        <a href="./index.html" class="text-white text-decoration-none">
-            <img src="./images/icons/bc.png" alt="BC logo" style="width:40px;"/>
-            BorrowCup Dashboard
-        </a>
-    </span>
-  
-    <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse align-items-baseline" id="collapsibleNavbar">
-      <ul class="navbar-nav align-items-baseline">
-        <li class="nav-item">
-          <a class="nav-link" href="templates/usefreq.html">Use Frequency</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="templates/returntime.html">Return Time</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="templates/reusetime.html">Reuse Time</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="templates/reuseprop.html">Reuse Proportions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="templates/usagepattern.html">Usage Pattern</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="templates/cuploss.html">Cup Loss</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto align-items-baseline">
-        <li class="nav-item">
-          <span class="navbar-text">Creator: Arihant Jain</span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://www.linkedin.com/in/arihant-jain-here" target="_blank" rel="noopener noreferrer">
-            <img src="./images/icons/linkedin.png" alt="LinkedIn" style="width:40px;"/>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://www.github.com/arihant-jain" target="_blank" rel="noopener noreferrer">
-            <img src="./images/icons/github.svg" alt="GitHub" style="width:40px;"/>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <!-- navigation bar -->
+  <div id="navigation-div"></div>
+  <script>
+    // load navigation tags without changing links
+    $('#navigation-div').load('../navigation.html .navbar');
+  </script>
+
+  <!-- warning -->
   <p class="lead text-center mx-0 my-3 px-5 bg-warning text-white">
     Due to Coronavirus pandemic and operations shutting down, the data has stagnated and the charts 
     won't update soon.
@@ -106,12 +61,10 @@
     </div>
   </div>
 
-  <div class="jumbotron jumbotron-fluid my-0">
-    <div class="container">
-      <span class="small">Credit for the GitHub icon goes to
-        <a href='https://dryicons.com/icon/circle-github-icon-8309'>Dryicons</a>
-      </span>
-    </div>
-  </div>
+  <!-- footer -->
+  <div id="footer-div"></div>
+  <script>
+    $('#footer-div').load('../footer.html .page-footer');
+  </script>
 </body>
 </html>
