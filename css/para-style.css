@@ -1,0 +1,20 @@
+.para-box {
+    position: relative;
+}
+.start-quote {
+    position: absolute;
+    transform: rotate(180deg) skewX(-10deg);
+    z-index: -1;
+    opacity: 10%;
+    width: 6em;
+}
+
+.end-quote {
+    position: absolute;
+    transform: skewX(-10deg);
+    z-index: -1;
+    opacity: 10%;
+    width: 6em;
+    right: 0px;
+    bottom: 0px;
+}
