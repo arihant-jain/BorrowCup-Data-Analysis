@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,18 +15,27 @@
 
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+
   <!-- Load d3.js -->
   <!-- <script src="https://d3js.org/d3.v4.js"></script> -->
 
   <!-- Load color palette -->
   <!-- <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script> -->
 
+  <!-- Load Odometer library -->
+  <script src="./lib/odometer/js/odometer.min.js"></script>
+  <link rel="stylesheet" href="./lib/odometer/css/odometer-theme-train-station.css" />
+
+  <!-- Font awesome library -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
   <link rel="stylesheet" href="./css/font.css">
 
   <title>Home - BorrowCup Data Analysis</title>
 
 </head>
+
 <body>
   <!-- navigation bar -->
   <div id="navigation-div"></div>
@@ -35,23 +45,36 @@
   </script>
 
   <!-- warning -->
-  <p class="lead text-center mx-0 my-3 px-5 bg-warning text-white">
-    Due to Coronavirus pandemic and operations shutting down, the data has stagnated and the charts 
+  <p class="lead text-center mx-0 my-3 px-5 bg-danger text-white">
+    Due to Coronavirus pandemic and operations shutting down, the data has stagnated and the charts
     won't update soon.
   </p>
-  
   <div class="container my-5">
-    <p class="lead text-justify">This website serves as a dashboard for the BorrowCup's data. Here, you can view a 
-        number of charts and read about the insights. Click on the links above/side to view any chart.
+    <div class="row">
+      <div class="col-sm text-center my-3">
+        <h3>Borrows</h3>
+        <h1 class="display-3 odometer" id="borrowsCount"></h1>
+      </div>
+      <div class="col-sm text-center my-3">
+        <h3>Returns</h3>
+        <h1 class="display-3 odometer" id="returnsCount"></h1>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="./js/borrowReturnCounts.js"></script>
+
+  <div class="container my-5">
+    <p class="lead text-justify">This website serves as a dashboard for the BorrowCup's data. Here, you can view a
+      number of charts and read about the insights. Click on the links above/side to view any chart.
     </p>
   </div>
   <div class="container my-5">
     <h2>A bit about BorrowCup</h2>
-    <p class="lead text-justify">BorrowCup is a students’ initiative towards sustainable living funded 
-        by Monash University. According to a statistic, about 1 million disposable coffee cups are used 
-        across Monash University Melbourne campuses every year. This initiative aims to reduce that 
-        number by allowing students and staff to use BorrowCup – a keep cup which can be borrowed from 
-        a cafe and returned in dedicated bins spread across campus at their convenience.
+    <p class="lead text-justify">BorrowCup is a students’ initiative towards sustainable living funded
+      by Monash University. According to a statistic, about 1 million disposable coffee cups are used
+      across Monash University Melbourne campuses every year. This initiative aims to reduce that
+      number by allowing students and staff to use BorrowCup – a keep cup which can be borrowed from
+      a cafe and returned in dedicated bins spread across campus at their convenience.
     </p>
   </div>
   <div class="container-fluid">
@@ -67,4 +90,5 @@
     $('#footer-div').load('./footer.html .page-footer');
   </script>
 </body>
+
 </html>
