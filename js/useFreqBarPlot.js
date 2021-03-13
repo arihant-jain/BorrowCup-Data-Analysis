@@ -25,7 +25,7 @@ function buildChart(dataFilePath){
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    // Read dummy data
+    // Read the data
     d3.csv(dataFilePath, function(data) {
         console.log(data);
 
