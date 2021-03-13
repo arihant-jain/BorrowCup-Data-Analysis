@@ -1,4 +1,4 @@
-var dataSource = '../data files/returnScanRates.csv';
+var dataSource = './data files/returnScanRates.csv';
 buildChart(dataSource);
 
 function buildChart(dataFilePath){
