@@ -17,10 +17,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <!-- Load d3.js -->
-  <!-- <script src="https://d3js.org/d3.v4.js"></script> -->
+  <script src="https://d3js.org/d3.v4.js"></script>
 
   <!-- Load color palette -->
-  <!-- <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script> -->
+  <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
 
   <!-- Load Odometer library -->
   <script src="./lib/odometer/js/odometer.min.js"></script>
@@ -31,8 +31,9 @@
     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
   <link rel="stylesheet" href="./css/font.css">
+  <link rel="stylesheet" href="css/graph.css">
 
-  <title>Home - BorrowCup Data Analysis</title>
+  <title>BorrowCup Dashboard</title>
 
 </head>
 
@@ -63,6 +64,15 @@
   </div>
   <script type="text/javascript" src="./js/borrowReturnCounts.js"></script>
 
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Create a div where the graph will take place -->
+      <div class="col-12 col-md-10 px-0 mx-auto" id="scanRateViz" style="font-size: 10px;"></div>
+    </div>
+  </div>
+  <script type="text/javascript" src="./js/returnScanRates.js"></script>
+  <script type="text/javascript" src="./js/reloadOnResize.js"></script>
+
   <div class="container my-5">
     <p class="lead text-justify">This website serves as a dashboard for the BorrowCup's data. Here, you can view a
       number of charts and read about the insights. Click on the links above/side to view any chart.
@@ -76,12 +86,6 @@
       number by allowing students and staff to use BorrowCup – a keep cup which can be borrowed from
       a cafe and returned in dedicated bins spread across campus at their convenience.
     </p>
-  </div>
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Create a div where the graph will take place -->
-      <div class="col-12 col-md-10 px-0 mx-auto" id="dataviz" style="font-size: 10px;"></div>
-    </div>
   </div>
 
   <!-- footer -->
