@@ -1,21 +1,27 @@
-function buildReturnChart(dataFilePath){
+$(document).ready(function(){
+    buildReturnChart();
+    buildSaleChart();
+})
+
+function buildSaleChart(){
     var dataFilePath = './data files/returnScanRates.csv';
     // remove any prior diagrams
     // d3.selectAll('svg').remove();
 
-    var width = document.getElementById('returnScanRateViz').clientWidth;
+    var width = document.getElementById('saleScanRateViz').clientWidth;
     // this allows us to collect the width of the div where the SVG will go.
 
     var height = width/2;
 
     // set the dimensions and margins of the graph
+    // var margin = {top: Math.min(height/10, 50), right: Math.min(width/5, 30), bottom: Math.min(height/5, 20), left: Math.min(width/10, 50)};
     var margin = {top: height/10, right: width/20, bottom: height/10, left: width/10 + width/20};
 
     var width = width - margin.left - margin.right;
     var height = height - margin.top - margin.bottom;
     
     // append the svg object to the body of the page
-    var svg = d3.select("#returnScanRateViz")
+    var svg = d3.select("#saleScanRateViz")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
