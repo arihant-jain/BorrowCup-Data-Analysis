@@ -1,4 +1,5 @@
 # BorrowCup Data Analysis
+[Visit the Dashboard](https://arihant-jain.github.io/BorrowCup-Data-Analysis/index.html "BorrowCup Dashboard")
 
 ## A bit about BorrowCup
 BorrowCup is a students’ initiative towards sustainable living funded by Monash University. According to a statistic, about 1 million disposable coffee cups are used across Monash University Melbourne campuses every year. This initiative aims to reduce that number by allowing students and staff to use BorrowCup – a keep cup which can be borrowed from a cafe and returned in dedicated bins spread across campus at their convenience.
