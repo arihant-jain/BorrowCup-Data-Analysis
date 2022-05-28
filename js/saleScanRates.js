@@ -4,7 +4,7 @@ $(document).ready(function(){
 })
 
 function buildSaleChart(){
-    var dataFilePath = './data files/returnScanRates.csv';
+    var dataFilePath = './data files/saleScanRates.csv';
     // remove any prior diagrams
     // d3.selectAll('svg').remove();
 
@@ -29,175 +29,195 @@ function buildSaleChart(){
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    //Read the data
-    d3.csv(dataFilePath,
-        // When reading the csv, I must format variables:
-        function(d) {
-            var output = { 
-                date : d3.timeParse("%Y-%m-%d")(d.date), 
-                count : +d.count,
-                washed : +d.washed,
-                percent : +d.percent
-            }
-            return output;
-        },
-        // Now I can use this dataset:
-        function(data){
+    // Read the data
+    d3.csv(dataFilePath, function(data){
+        // group the data: I want to draw one line per cafe
+        var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
+            .key(function(d) { return d.cafe_name;})
+            .entries(data);
+        console.log(sumstat);
+        
+        var weekExtent = d3.extent(data, function(d) { return +d.week; });
+        // Build X axis
+        var x = d3.scaleLinear()
+            .domain(weekExtent)
+            .range([ 0, width ]);
+        console.log("extent", weekExtent);
+        
+        var minPercent = Math.max(d3.min(data, function(d) { return +d.percent; }) - 5, 0);
+        var maxPercent = Math.min(d3.max(data, function(d) { return +d.percent; }) + 5, 100);
 
-            // Build X axis --> it is a date format
-            var x = d3.scaleTime()
-                .domain(d3.extent(data, function(d) { return d.date; }))
-                .range([ 0, width ]);
-            
-            // Build Y axis
-            var y = d3.scaleLinear()
-            .domain([Math.max(d3.min(data, function(d) { return +d.percent; }) - 5, 0), d3.max(data, function(d) { return +d.percent; }) + 5])
-            .range([ height, 0 ]);
+        // Build Y axis
+        var y = d3.scaleLinear()
+        .domain([minPercent, maxPercent])
+        .range([ height, 0 ]);
 
-            // Add the vertical gridlines
-            svg
-            .append("g")			
-                .attr("class", "grid")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x)
-                    .ticks(5)
-                    .tickSize(-height)
-                    .tickFormat("")
-                );
-            
-            // Add the horizontal gridlines
-            svg
-            .append("g")			
-                .attr("class", "grid")                
-                .call(d3.axisLeft(y)
-                    .ticks(5)
-                    .tickSize(-width)
-                    .tickFormat("")
-                );
+        // Add the vertical gridlines
+        svg
+        .append("g")			
+            .attr("class", "grid")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x)
+                .ticks(weekExtent[1] - weekExtent[0])
+                .tickSize(-height)
+                .tickFormat("")
+            );
+        
+        // Add the horizontal gridlines
+        svg
+        .append("g")			
+            .attr("class", "grid")                
+            .call(d3.axisLeft(y)
+                .ticks(5)
+                .tickSize(-width)
+                .tickFormat("")
+            );
 
-            // Add X axis
-            svg
-            .append("g")
-                .attr("class", "axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x));
+        // Add X axis
+        svg
+        .append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).ticks(weekExtent[1] - weekExtent[0]));
+
+        // Add Y axis
+        svg
+        .append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y));
+
+        // color palette
+        var res = sumstat.map(function(d){ return d.key }) // list of group names
+        var color = d3.scaleOrdinal()
+            .domain(res)
+            .range(d3.schemePaired) // 12 colour range
 
 
-            // Add Y axis
-            svg
-            .append("g")
-                .attr("class", "axis")
-                .call(d3.axisLeft(y));
+        // Add the line
+        // Draw the line
+        svg.selectAll(".line")
+        .data(sumstat)
+        .enter()
+        .append("path")
+            .attr("fill", "none")
+            .attr("stroke", function(d){ return color(d.key) })
+            .attr("stroke-width", 1.5)
+            .attr("d", function(d){
+                return d3.line()
+                    .x(function(d) { return x(+d.week); })
+                    .y(function(d) { return y(+d.percent); })
+                    (d.values);
+            });
+        /*
+        svg
+        .append("path")
+        .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+                .x(function(d) { return x(d.date) })
+                .y(function(d) { return y(d.percent) })
+            );
+        */
+        
+        // This allows to find the closest X index of the mouse:
+        var bisect = d3.bisector(function(d) { return d.week; }).left;
 
-            // Add the line
-            svg
-            .append("path")
-            .datum(data)
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 2)
-                .attr("d", d3.line()
-                    .x(function(d) { return x(d.date) })
-                    .y(function(d) { return y(d.percent) })
-                );
+        // Create the circle that travels along the curve of chart
+        var focus = svg
+        .append('g')
+        .append('circle')
+            .classed('circle', true)
+            .style("fill", "none")
+            .attr("stroke", "black")
+            .attr('r', 8.5)
+            .style("opacity", 0);
 
-            
-            // This allows to find the closest X index of the mouse:
-            var bisect = d3.bisector(function(d) { return d.date; }).left;
+        // Create a rect on top of the svg area: this rectangle recovers mouse position
+        svg
+        .append('rect')
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .attr('width', width)
+            .attr('height', height)
+            .on('mouseover', mouseover)
+            .on('mousemove', mousemove)
+            .on('mouseout', mouseout);
 
-            // Create the circle that travels along the curve of chart
-            var focus = svg
-            .append('g')
-            .append('circle')
-                .classed('circle', true)
-                .style("fill", "none")
-                .attr("stroke", "black")
-                .attr('r', 8.5)
-                .style("opacity", 0);
+        var oldSelectedData = null;
 
-            // Create a rect on top of the svg area: this rectangle recovers mouse position
-            svg
-            .append('rect')
-                .style("fill", "none")
-                .style("pointer-events", "all")
-                .attr('width', width)
-                .attr('height', height)
-                .on('mouseover', mouseover)
-                .on('mousemove', mousemove)
-                .on('mouseout', mouseout);
+        // What happens when the mouse move -> show the annotations at the right positions.
+        function mouseover() {
+            focus.style("opacity", 1);
+        }
 
-            var oldSelectedData = null;
+        function mousemove() {
+            // recover coordinate we need
+            var x0 = x.invert(d3.mouse(this)[0]);
+            var i = bisect(data, x0, 1);
+            var newSelectedData = data[i];
+            focus
+                .attr("cx", x(newSelectedData.week))
+                .attr("cy", y(newSelectedData.percent))
+                .attr("title", "<p class=' lead text-left'>" + newSelectedData.percent + "%" + 
+                "</p><p class='text-left m-0'>" + newSelectedData.week + "</p>");
 
-            // What happens when the mouse move -> show the annotations at the right positions.
-            function mouseover() {
-                focus.style("opacity", 1);
-            }
-
-            function mousemove() {
-                // recover coordinate we need
-                var x0 = x.invert(d3.mouse(this)[0]);
-                var i = bisect(data, x0, 1);
-                var newSelectedData = data[i];
-                focus
-                    .attr("cx", x(newSelectedData.date))
-                    .attr("cy", y(newSelectedData.percent))
-                    .attr("title", "<p class=' lead text-left'>" + newSelectedData.percent + "%" + 
-                    "</p><p class='text-left m-0'>" + newSelectedData.date.toDateString().substr(4) + "</p>");
-
-                if(oldSelectedData != null && oldSelectedData != newSelectedData){
-                    $(".circle").mouseout();
-                    $(".circle").tooltip("dispose");
-
-                    // adding bootstrap tooltip
-                    $(".circle").tooltip({
-                        container: 'body',
-                        placement: 'right',
-                        html: true
-                    });
-                    $(".circle").mouseover();
-                }
-                oldSelectedData = newSelectedData;                
-                
-            }
-            function mouseout() {
-                focus.style("opacity", 0);
+            if(oldSelectedData != null && oldSelectedData != newSelectedData){
                 $(".circle").mouseout();
+                $(".circle").tooltip("dispose");
+
+                // adding bootstrap tooltip
+                $(".circle").tooltip({
+                    container: 'body',
+                    placement: 'right',
+                    html: true
+                });
+                $(".circle").mouseover();
             }
-
-            // add title
-            svg
-            .append("text")
-                .classed('title', true)
-                .attr("x", width/2)
-                .attr("y", -margin.top)
-                .attr("alignment-baseline", "hanging")
-                .text("Scan Rate - Return")
-                    .style("text-anchor", "middle");
+            oldSelectedData = newSelectedData;                
             
-            // add x axis label
-            svg
-            .append("text")
-                .attr("x", width/2)
-                .attr("y", height + margin.bottom)
-                .text("Date")
-                    .style("text-anchor", "middle");
+        }
+        function mouseout() {
+            focus.style("opacity", 0);
+            $(".circle").mouseout();
+        }
 
-            // add y axis label
-            svg
-            .append("text")
-                .attr("transform", "translate(" + -margin.left/2 + ", " + height/2 + ") rotate(-90)")
-                .attr("alignment-baseline", "hanging")
-                .text("Percentage")
-                    .style("text-anchor", "middle");
-            
-            // add total days
-            svg
-            .append("text")
-                .attr("x", width)
-                .attr("y", "1rem")
-                .text("Days: " + data.length)
-                    .style("text-anchor", "end");
+        // add title
+        svg
+        .append("text")
+            .classed('title', true)
+            .attr("x", width/2)
+            .attr("y", -margin.top)
+            .attr("alignment-baseline", "hanging")
+            .text("Scan Rates - Sale")
+                .style("text-anchor", "middle");
+        
+        // add x axis label
+        svg
+        .append("text")
+            .attr("x", width/2)
+            .attr("y", height + margin.bottom)
+            .text("Week Number")
+                .style("text-anchor", "middle");
 
-        });
+        // add y axis label
+        svg
+        .append("text")
+            .attr("transform", "translate(" + -margin.left/2 + ", " + height/2 + ") rotate(-90)")
+            .attr("alignment-baseline", "hanging")
+            .text("Percentage")
+                .style("text-anchor", "middle");
+        
+        // add total days
+        /*
+        svg
+        .append("text")
+            .attr("x", width)
+            .attr("y", "1rem")
+            .text("Days: " + data.length)
+                .style("text-anchor", "end");
+        */
+    });
 
 }

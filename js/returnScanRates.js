@@ -1,4 +1,4 @@
-function buildReturnChart(dataFilePath){
+function buildReturnChart(){
     var dataFilePath = './data files/returnScanRates.csv';
     // remove any prior diagrams
     // d3.selectAll('svg').remove();
@@ -139,6 +139,9 @@ function buildReturnChart(dataFilePath){
                     "</p><p class='text-left m-0'>" + newSelectedData.date.toDateString().substr(4) + "</p>");
 
                 if(oldSelectedData != null && oldSelectedData != newSelectedData){
+                    console.log("inside")
+                    console.log("old-new", oldSelectedData, newSelectedData)
+                    console.log("old == new", oldSelectedData == newSelectedData)
                     $(".circle").mouseout();
                     $(".circle").tooltip("dispose");
 
@@ -150,8 +153,7 @@ function buildReturnChart(dataFilePath){
                     });
                     $(".circle").mouseover();
                 }
-                oldSelectedData = newSelectedData;                
-                
+                oldSelectedData = newSelectedData;
             }
             function mouseout() {
                 focus.style("opacity", 0);
